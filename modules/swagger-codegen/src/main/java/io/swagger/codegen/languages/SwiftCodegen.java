@@ -351,12 +351,18 @@ public class SwiftCodegen extends DefaultCodegen implements CodegenConfig {
     public String toSwiftyEnumName(Object v) {
         String value = v.toString();
 
+        // Value starts with number
+        String prefix = "";
+        if (value.matches("^\\d.*")) {
+            prefix = "_";
+        }
+
         // Prevent from breaking properly cased identifier
         if (value.matches("[A-Z][a-z0-9]+[a-zA-Z0-9]*")) {
             return value;
         }
         char[] separators = {'-', '_', ' '};
-        return WordUtils.capitalizeFully(StringUtils.lowerCase(value), separators).replaceAll("[-_ ]", "");
+        return prefix + WordUtils.capitalizeFully(StringUtils.lowerCase(value), separators).replaceAll("[-_ ]", "");
     }
 
 
