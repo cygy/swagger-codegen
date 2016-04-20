@@ -326,10 +326,10 @@ public class SwiftCodegen extends DefaultCodegen implements CodegenConfig {
     public CodegenProperty fromProperty(String name, Property p) {
         CodegenProperty codegenProperty = super.fromProperty(name, p);
         if (codegenProperty.isEnum) {
-            List<Map<String, String>> swiftEnums = new ArrayList<Map<String, String>>();
-            List<String> values = (List<String>) codegenProperty.allowableValues.get("values");
-            for (String value : values) {
-                Map<String, String> map = new HashMap<String, String>();
+            List<Map<String, Object>> swiftEnums = new ArrayList<Map<String, Object>>();
+            List<Object> values = (List<Object>) codegenProperty.allowableValues.get("values");
+            for (Object value : values) {
+                Map<String, Object> map = new HashMap<String, Object>();
                 map.put("enum", toSwiftyEnumName(value));
                 map.put("raw", value);
                 swiftEnums.add(map);
@@ -348,7 +348,9 @@ public class SwiftCodegen extends DefaultCodegen implements CodegenConfig {
     }
 
     @SuppressWarnings("static-method")
-    public String toSwiftyEnumName(String value) {
+    public String toSwiftyEnumName(Object v) {
+        String value = v.toString();
+
         // Prevent from breaking properly cased identifier
         if (value.matches("[A-Z][a-z0-9]+[a-zA-Z0-9]*")) {
             return value;
@@ -367,7 +369,7 @@ public class SwiftCodegen extends DefaultCodegen implements CodegenConfig {
 
     @Override
     public String toOperationId(String operationId) {
-        operationId = camelize(sanitizeName(operationId), true); 
+        operationId = camelize(sanitizeName(operationId), true);
 
         // throw exception if method name is empty. This should not happen but keep the check just in case
         if (StringUtils.isEmpty(operationId)) {
