@@ -201,6 +201,8 @@ public class SwiftCodegen extends DefaultCodegen implements CodegenConfig {
         supportingFiles.add(new SupportingFile("APIs.mustache", sourceFolder, "APIs.swift"));
         supportingFiles.add(new SupportingFile("git_push.sh.mustache", "", "git_push.sh"));
         supportingFiles.add(new SupportingFile("gitignore.mustache", "", ".gitignore"));
+        supportingFiles.add(new SupportingFile("OVHCredentials.mustache", sourceFolder, "OVHCredentials.swift"));
+        supportingFiles.add(new SupportingFile("RequestBuilderExtension.mustache", sourceFolder, "RequestBuilderExtension.swift"));
 
     }
 
@@ -342,7 +344,7 @@ public class SwiftCodegen extends DefaultCodegen implements CodegenConfig {
             if (codegenProperty.datatypeWithEnum.startsWith("_")) {
                 codegenProperty.datatypeWithEnum = StringUtils.capitalize(StringUtils.right(codegenProperty.datatypeWithEnum, codegenProperty.datatypeWithEnum.length() - 1));
             }
-            
+
             // Ensure that the enum type doesn't match a reserved word or
             // the variable name doesn't match the generated enum type or the
             // Swift compiler will generate an error
