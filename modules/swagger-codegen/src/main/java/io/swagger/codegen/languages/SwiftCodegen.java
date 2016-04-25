@@ -342,7 +342,7 @@ public class SwiftCodegen extends DefaultCodegen implements CodegenConfig {
             if (codegenProperty.datatypeWithEnum.startsWith("_")) {
                 codegenProperty.datatypeWithEnum = StringUtils.capitalize(StringUtils.right(codegenProperty.datatypeWithEnum, codegenProperty.datatypeWithEnum.length() - 1));
             }
-            
+
             // Ensure that the enum type doesn't match a reserved word or
             // the variable name doesn't match the generated enum type or the
             // Swift compiler will generate an error
@@ -368,7 +368,7 @@ public class SwiftCodegen extends DefaultCodegen implements CodegenConfig {
             return value;
         }
         char[] separators = {'-', '_', ' '};
-        return prefix + WordUtils.capitalizeFully(StringUtils.lowerCase(value), separators).replaceAll("[-_ ]", "");
+        return prefix + WordUtils.capitalizeFully(StringUtils.lowerCase(value), separators).replaceAll("[^a-zA-Z0-9]", "");
     }
 
 
