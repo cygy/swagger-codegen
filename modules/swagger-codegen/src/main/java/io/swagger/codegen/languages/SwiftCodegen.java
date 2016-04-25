@@ -370,7 +370,7 @@ public class SwiftCodegen extends DefaultCodegen implements CodegenConfig {
             return value;
         }
         char[] separators = {'-', '_', ' '};
-        return prefix + WordUtils.capitalizeFully(StringUtils.lowerCase(value), separators).replaceAll("[-_ ]", "");
+        return prefix + WordUtils.capitalizeFully(StringUtils.lowerCase(value), separators).replaceAll("[^a-zA-Z0-9]", "");
     }
 
 
