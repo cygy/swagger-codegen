@@ -8,7 +8,7 @@ import CryptoSwift
 
 extension RequestBuilder {
 
-    public func addOVHAuthenticationHeaders(signed: Bool) {
+    public func addAuthenticationHeaders(signed: Bool) {
         var jsonBody = ""
         if let parameters = parameters where isBody && signed {
             do {
