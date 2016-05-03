@@ -19,7 +19,7 @@ extension RequestBuilder {
             }
         }
 
-        if let headers = OVHCredentials.sharedCredentials.getAuthenticationHeadersWithSignature(signed, url: URLString, method: method, andBody: jsonBody) {
+        if let headers = Credentials.sharedCredentials.getAuthenticationHeadersWithSignature(signed, url: URLString, method: method, andBody: jsonBody) {
             addHeaders(headers)
         }
     }
