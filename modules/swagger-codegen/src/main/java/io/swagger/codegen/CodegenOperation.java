@@ -13,7 +13,8 @@ public class CodegenOperation {
     public Boolean hasAuthMethods, hasConsumes, hasProduces, hasParams, hasOptionalParams,
             returnTypeIsPrimitive, returnSimpleType, subresourceOperation, isMapContainer,
             isListContainer, isMultipart, hasMore = Boolean.TRUE,
-            isResponseBinary = Boolean.FALSE, hasReference = Boolean.FALSE;
+            isResponseBinary = Boolean.FALSE, hasReference = Boolean.FALSE,
+            isAuthenticationRequired;
     public String path, operationId, returnType, httpMethod, returnBaseType,
             returnContainer, summary, unescapedNotes, notes, baseName, defaultResponse, discriminator;
     public List<Map<String, String>> consumes, produces;

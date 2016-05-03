@@ -84,7 +84,11 @@ public class {{classname}}: APIBase {
 
         let requestBuilder: RequestBuilder<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Void{{/returnType}}>.Type = {{projectName}}API.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "{{httpMethod}}", URLString: URLString, parameters: parameters, isBody: {{^queryParams}}{{^formParams}}true{{/formParams}}{{/queryParams}}{{#queryParams}}{{^secondaryParam}}false{{/secondaryParam}}{{/queryParams}}{{#formParams}}{{^secondaryParam}}false{{/secondaryParam}}{{/formParams}})
+        let request = requestBuilder.init(method: "{{httpMethod}}", URLString: URLString, parameters: parameters, isBody: {{^queryParams}}{{^formParams}}true{{/formParams}}{{/queryParams}}{{#queryParams}}{{^secondaryParam}}false{{/secondaryParam}}{{/queryParams}}{{#formParams}}{{^secondaryParam}}false{{/secondaryParam}}{{/formParams}})
+
+        request.addAuthenticationHeaders({{#isAuthenticationRequired}}true{{/isAuthenticationRequired}}{{^isAuthenticationRequired}}false{{/isAuthenticationRequired}})
+
+        return request
     }
 
 {{/operation}}

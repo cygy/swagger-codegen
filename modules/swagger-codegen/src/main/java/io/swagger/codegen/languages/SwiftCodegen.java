@@ -458,7 +458,9 @@ public class SwiftCodegen extends DefaultCodegen implements CodegenConfig {
             }
         }));
         operation.setParameters(parameters);
-        return super.fromOperation(path, httpMethod, operation, definitions, swagger);
+        CodegenOperation codegenOperation = super.fromOperation(path, httpMethod, operation, definitions, swagger);
+        codegenOperation.isAuthenticationRequired = operation.getDescription().endsWith("authentication required");
+        return codegenOperation;
     }
 
     private static String normalizePath(String path) {
