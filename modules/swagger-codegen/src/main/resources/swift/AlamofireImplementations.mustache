@@ -21,6 +21,19 @@ class AlamofireRequestBuilder<T>: RequestBuilder<T> {
     }
 
     override func execute(completion: (response: Response<T>?, error: ErrorType?) -> Void) {
+        // Check if the delta time is updated.
+        if !Credentials.sharedCredentials.isDeltaTimeUpdated() {
+            Credentials.sharedCredentials.updateDeltaTime({ error in
+                guard error == nil else {
+                    completion(response: nil, error: error)
+                    return
+                }
+
+                self.execute(completion)
+            })
+            return
+        }
+
         let managerId = NSUUID().UUIDString
         // Create a new manager for each request to customize its request header
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
