@@ -201,6 +201,7 @@ public class SwiftCodegen extends DefaultCodegen implements CodegenConfig {
         supportingFiles.add(new SupportingFile("APIs.mustache", sourceFolder, "APIs.swift"));
         supportingFiles.add(new SupportingFile("git_push.sh.mustache", "", "git_push.sh"));
         supportingFiles.add(new SupportingFile("gitignore.mustache", "", ".gitignore"));
+        supportingFiles.add(new SupportingFile("APIError.mustache", sourceFolder, "APIError.swift"));
         supportingFiles.add(new SupportingFile("Credentials.mustache", sourceFolder, "Credentials.swift"));
         supportingFiles.add(new SupportingFile("RequestBuilderExtension.mustache", sourceFolder, "RequestBuilderExtension.swift"));
 

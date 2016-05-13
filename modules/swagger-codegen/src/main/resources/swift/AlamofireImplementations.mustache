@@ -92,7 +92,22 @@ class AlamofireRequestBuilder<T>: RequestBuilder<T> {
             managerStore.removeValueForKey(managerId)
 
             if response.result.isFailure {
-                completion(response: nil, error: response.result.error)
+                var error: ErrorType? = response.result.error
+                if let data = response.data {
+                    do {
+                        let result = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
+
+                        if let dictionary = result as? NSDictionary, let message = dictionary["message"] as? String {
+                            var code = 0
+                            if let responseCode = response.response?.statusCode {
+                                code = responseCode
+                            }
+                            error = APIError.RequestError(code: code, httpCode: dictionary["httpCode"] as? String, errorCode: dictionary["errorCode"] as? String, message: message)
+                        }
+                    } catch {
+                    }
+                }
+                completion(response: nil, error: error)
                 return
             }
 
