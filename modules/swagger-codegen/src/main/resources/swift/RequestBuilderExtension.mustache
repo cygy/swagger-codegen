@@ -8,7 +8,7 @@ import CryptoSwift
 
 extension RequestBuilder {
 
-    public func addAuthenticationHeaders(signed: Bool) {
+    public func addAuthenticationHeaders(signed: Bool, consumerKey: String? = nil) {
         var jsonBody = ""
         if let parameters = parameters where isBody && signed {
             do {
@@ -19,7 +19,7 @@ extension RequestBuilder {
             }
         }
 
-        if let headers = Credentials.sharedCredentials.getAuthenticationHeadersWithSignature(signed, url: URLString, method: method, andBody: jsonBody) {
+        if let headers = Credentials.sharedCredentials.getAuthenticationHeadersWithSignature(signed, consumerKey: consumerKey, url: URLString, method: method, andBody: jsonBody) {
             addHeaders(headers)
         }
     }
