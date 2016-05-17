@@ -36,7 +36,9 @@ public class JavaClientCodegen extends DefaultCodegen implements CodegenConfig {
     protected String artifactId = "swagger-java-client";
     protected String artifactVersion = "1.0.0";
     protected String projectFolder = "src" + File.separator + "main";
+    protected String projectTestFolder = "src" + File.separator + "test";
     protected String sourceFolder = projectFolder + File.separator + "java";
+    protected String testFolder = projectTestFolder + File.separator + "java";
     protected String localVariablePrefix = "";
     protected boolean fullJavaUtil;
     protected String javaUtilPrefix = "";
@@ -52,6 +54,7 @@ public class JavaClientCodegen extends DefaultCodegen implements CodegenConfig {
         outputFolder = "generated-code" + File.separator + "java";
         modelTemplateFiles.put("model.mustache", ".java");
         apiTemplateFiles.put("api.mustache", ".java");
+        apiTestTemplateFiles.put("api_test.mustache", ".java");
         embeddedTemplateDir = templateDir = "Java";
         apiPackage = "io.swagger.client.api";
         modelPackage = "io.swagger.client.model";
@@ -107,12 +110,12 @@ public class JavaClientCodegen extends DefaultCodegen implements CodegenConfig {
         cliOptions.add(CliOption.newBoolean(USE_RX_JAVA, "Whether to use the RxJava adapter with the retrofit2 library."));
         cliOptions.add(new CliOption("hideGenerationTimestamp", "hides the timestamp when files were generated"));
 
-        supportedLibraries.put(DEFAULT_LIBRARY, "HTTP client: Jersey client 1.18. JSON processing: Jackson 2.4.2");
-        supportedLibraries.put("feign", "HTTP client: Netflix Feign 8.1.1");
-        supportedLibraries.put("jersey2", "HTTP client: Jersey client 2.6");
-        supportedLibraries.put("okhttp-gson", "HTTP client: OkHttp 2.4.0. JSON processing: Gson 2.3.1");
-        supportedLibraries.put(RETROFIT_1, "HTTP client: OkHttp 2.4.0. JSON processing: Gson 2.3.1 (Retrofit 1.9.0)");
-        supportedLibraries.put(RETROFIT_2, "HTTP client: OkHttp 2.5.0. JSON processing: Gson 2.4 (Retrofit 2.0.1). Enable the RxJava adapter using '-DuseRxJava=true'. (RxJava 1.1.2)");
+        supportedLibraries.put(DEFAULT_LIBRARY, "HTTP client: Jersey client 1.19.1. JSON processing: Jackson 2.7.0");
+        supportedLibraries.put("feign", "HTTP client: Netflix Feign 8.16.0. JSON processing: Jackson 2.7.0");
+        supportedLibraries.put("jersey2", "HTTP client: Jersey client 2.22.2. JSON processing: Jackson 2.7.0");
+        supportedLibraries.put("okhttp-gson", "HTTP client: OkHttp 2.7.5. JSON processing: Gson 2.6.2");
+        supportedLibraries.put(RETROFIT_1, "HTTP client: OkHttp 2.7.5. JSON processing: Gson 2.3.1 (Retrofit 1.9.0)");
+        supportedLibraries.put(RETROFIT_2, "HTTP client: OkHttp 3.2.0. JSON processing: Gson 2.6.1 (Retrofit 2.0.2). Enable the RxJava adapter using '-DuseRxJava=true'. (RxJava 1.1.3)");
 
         CliOption library = new CliOption(CodegenConstants.LIBRARY, "library template (sub-template) to use");
         library.setDefault(DEFAULT_LIBRARY);
@@ -367,6 +370,11 @@ public class JavaClientCodegen extends DefaultCodegen implements CodegenConfig {
     }
 
     @Override
+    public String apiTestFileFolder() {
+        return outputFolder + "/" + testFolder + "/" + apiPackage().replace('.', '/');
+    }
+
+    @Override
     public String modelFileFolder() {
         return outputFolder + "/" + sourceFolder + "/" + modelPackage().replace('.', '/');
     }
@@ -389,6 +397,11 @@ public class JavaClientCodegen extends DefaultCodegen implements CodegenConfig {
     @Override
     public String toModelDocFilename(String name) {
         return toModelName(name);
+    }
+
+    @Override
+    public String toApiTestFilename(String name) {
+        return toApiName(name) + "Test";
     }
 
     @Override
