@@ -16,8 +16,7 @@ public class CodegenOperation {
             isListContainer, isMultipart, hasMore = Boolean.TRUE,
             isResponseBinary = Boolean.FALSE, hasReference = Boolean.FALSE,
             isRestfulIndex, isRestfulShow, isRestfulCreate, isRestfulUpdate, isRestfulDestroy,
-            isRestful;
-            isResponseBinary = Boolean.FALSE, hasReference = Boolean.FALSE,
+            isRestful,
             isAuthenticationRequired;
     public String path, operationId, returnType, httpMethod, returnBaseType,
             returnContainer, summary, unescapedNotes, notes, baseName, defaultResponse, discriminator;

@@ -338,12 +338,9 @@ public class SwiftCodegen extends DefaultCodegen implements CodegenConfig {
                 swiftEnums.add(map);
             }
             codegenProperty.allowableValues.put("values", swiftEnums);
-            //codegenProperty.datatypeWithEnum = toEnumName(codegenProperty);
+            codegenProperty.datatypeWithEnum = toEnumName(codegenProperty);
             //codegenProperty.datatypeWithEnum =
             //    StringUtils.left(codegenProperty.datatypeWithEnum, codegenProperty.datatypeWithEnum.length() - "Enum".length());
-
-            codegenProperty.datatypeWithEnum =
-                StringUtils.left(codegenProperty.datatypeWithEnum, codegenProperty.datatypeWithEnum.length() - "Enum".length());
 
             // No need to escape the reserved word with swift 2.2, just capitalize the type.
             if (codegenProperty.datatypeWithEnum.startsWith("_")) {
