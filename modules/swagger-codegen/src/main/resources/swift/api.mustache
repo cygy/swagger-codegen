@@ -101,7 +101,7 @@ public class {{classname}}: APIBase {
 
         //return requestBuilder.init(method: "{{httpMethod}}", URLString: URLString, parameters: convertedParameters, isBody: {{^queryParams}}{{^formParams}}true{{/formParams}}{{/queryParams}}{{#queryParams}}{{^secondaryParam}}false{{/secondaryParam}}{{/queryParams}}{{#formParams}}{{^secondaryParam}}false{{/secondaryParam}}{{/formParams}})
 
-        let request = requestBuilder.init(method: "{{httpMethod}}", URLString: URLString, parameters: convertedParameters, isBody: {{^queryParams}}{{^formParams}}true{{/formParams}}{{/queryParams}}{{#queryParams}}{{^secondaryParam}}false{{/secondaryParam}}{{/queryParams}}{{#formParams}}{{^secondaryParam}}false{{/secondaryParam}}{{/formParams}})
+        let request = requestBuilder.init(method: "{{httpMethod}}", URLString: URLString, parameters: convertedParameters, isBody: {{#bodyParam}}true{{/bodyParam}}{{^bodyParam}}false{{/bodyParam}})
 
         request.addAuthenticationHeaders({{#isAuthenticationRequired}}true{{/isAuthenticationRequired}}{{^isAuthenticationRequired}}false{{/isAuthenticationRequired}}, consumerKey: consumerkey)
 
